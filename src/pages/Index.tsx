@@ -62,23 +62,14 @@ const SectionHeading = ({ label, title }: { label: string; title: string }) => (
 export default function Index() {
   const countdown = useCountdown(WEDDING_DATE);
   const [rsvp, setRsvp] = useState({
-    name: "", attending: "", plusOne: "", plusOneName: "", drinks: [] as string[], notes: ""
+    name: "", attending: "", plusOne: "", plusOneName: ""
   });
   const [submitted, setSubmitted] = useState(false);
-
-  const toggleDrink = (drink: string) => {
-    setRsvp(p => ({
-      ...p,
-      drinks: p.drinks.includes(drink) ? p.drinks.filter(d => d !== drink) : [...p.drinks, drink]
-    }));
-  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
   };
-
-  const drinks = ["Красное вино", "Белое вино", "Шампанское", "Виски", "Коктейли", "Безалкогольное"];
 
   const S = {
     page: {
@@ -416,42 +407,7 @@ export default function Index() {
                   </div>
                 )}
 
-                {/* Drinks */}
-                <div>
-                  <label style={{ display: "block", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#888", marginBottom: "0.75rem" }}>
-                    Предпочтения в напитках
-                  </label>
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
-                    {drinks.map(drink => (
-                      <button key={drink} type="button" onClick={() => toggleDrink(drink)}
-                        style={{
-                          padding: "0.4rem 1rem",
-                          border: "1px solid",
-                          borderColor: rsvp.drinks.includes(drink) ? "#b8986a" : "#d0c8bf",
-                          background: rsvp.drinks.includes(drink) ? "#b8986a" : "#fff",
-                          color: rsvp.drinks.includes(drink) ? "#fff" : "#555",
-                          fontFamily: "'Raleway', sans-serif",
-                          fontSize: "0.75rem",
-                          cursor: "pointer",
-                          borderRadius: "2px",
-                          transition: "all 0.2s",
-                        }}>
-                        {drink}
-                      </button>
-                    ))}
-                  </div>
-                </div>
               </>)}
-
-              {/* Notes */}
-              <div>
-                <label style={{ display: "block", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#888", marginBottom: "0.5rem" }}>
-                  Пожелания и аллергии
-                </label>
-                <textarea style={{ ...S.input, resize: "none" }} rows={3}
-                  placeholder="Диетические предпочтения, аллергии или особые пожелания..."
-                  value={rsvp.notes} onChange={e => setRsvp(p => ({ ...p, notes: e.target.value }))} />
-              </div>
 
               <button type="submit" style={S.btnPrimary}>Отправить ответ</button>
             </form>
