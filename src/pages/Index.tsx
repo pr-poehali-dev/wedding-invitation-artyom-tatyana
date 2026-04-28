@@ -65,6 +65,7 @@ export default function Index() {
     name: "", attending: "", plusOne: "", plusOneName: "", drinks: [] as string[], food: ""
   });
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
 
   const toggleDrink = (drink: string) => {
     setRsvp(p => ({
@@ -73,8 +74,17 @@ export default function Index() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSending(true);
+    try {
+      await fetch('https://functions.poehali.dev/79e9aeef-84a5-4fe1-8588-bd23d977c702', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(rsvp),
+      });
+    } catch (err) { console.error(err); }
+    setSending(false);
     setSubmitted(true);
   };
 
@@ -471,7 +481,9 @@ export default function Index() {
                 </div>
               </div>
 
-              <button type="submit" style={S.btnPrimary}>Отправить ответ</button>
+              <button type="submit" style={{ ...S.btnPrimary, opacity: sending ? 0.6 : 1 }} disabled={sending}>
+                {sending ? 'Отправляем...' : 'Отправить ответ'}
+              </button>
             </form>
           )}
         </div>
