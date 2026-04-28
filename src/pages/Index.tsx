@@ -62,7 +62,7 @@ const SectionHeading = ({ label, title }: { label: string; title: string }) => (
 export default function Index() {
   const countdown = useCountdown(WEDDING_DATE);
   const [rsvp, setRsvp] = useState({
-    name: "", attending: "", plusOne: "", plusOneName: "", drinks: [] as string[]
+    name: "", attending: "", plusOne: "", plusOneName: "", drinks: [] as string[], food: ""
   });
   const [submitted, setSubmitted] = useState(false);
 
@@ -415,6 +415,33 @@ export default function Index() {
                       onChange={e => setRsvp(p => ({ ...p, plusOneName: e.target.value }))} />
                   </div>
                 )}
+
+                {/* Food */}
+                <div>
+                  <label style={{ display: "block", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#888", marginBottom: "0.75rem" }}>
+                    Предпочтения в еде
+                  </label>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
+                    {[["meat", "🥩 Мясо"], ["fish", "🐟 Рыба"]].map(([val, label]) => (
+                      <button key={val} type="button"
+                        onClick={() => setRsvp(p => ({ ...p, food: val }))}
+                        style={{
+                          padding: "0.75rem",
+                          border: "1px solid",
+                          borderColor: rsvp.food === val ? "#1a1a1a" : "#d0c8bf",
+                          background: rsvp.food === val ? "#1a1a1a" : "#fff",
+                          color: rsvp.food === val ? "#fff" : "#555",
+                          fontFamily: "'Raleway', sans-serif",
+                          fontSize: "0.85rem",
+                          cursor: "pointer",
+                          borderRadius: "2px",
+                          transition: "all 0.2s",
+                        }}>
+                        {label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
 
                 {/* Drinks */}
                 <div>
