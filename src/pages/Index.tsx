@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Icon from "@/components/ui/icon";
 
-const WEDDING_DATE = new Date("2025-06-14T14:00:00");
+const WEDDING_DATE = new Date("2026-06-27T14:00:00");
 const COUPLE_IMAGE = "https://cdn.poehali.dev/projects/f53dbfb7-d727-42fe-9729-e895784092b3/files/9283ecf9-da07-46a6-80cc-60d82ada7f11.jpg";
 
 function useCountdown(target: Date) {
@@ -107,7 +107,7 @@ export default function Index() {
 
         <p className="font-cormorant animate-fade-in animate-delay-600 mt-4"
           style={{ fontSize: "1.5rem", color: "var(--gold)", fontStyle: "italic", opacity: 0 }}>
-          14 июня 2025
+          27 июня 2026
         </p>
 
         {/* Countdown */}
@@ -151,7 +151,7 @@ export default function Index() {
                 Артём &amp; Татьяна
               </p>
               <p style={{ color: "rgba(255,255,255,0.8)", fontSize: "0.8rem", letterSpacing: "0.2em", textTransform: "uppercase" }}>
-                14 июня 2025
+                27 июня 2026
               </p>
             </div>
           </div>
@@ -163,7 +163,7 @@ export default function Index() {
         <SectionTitle pre="всё что нужно знать" title="Детали события" />
         <div className="max-w-4xl mx-auto grid sm:grid-cols-3 gap-6">
           {[
-            { icon: "Calendar", label: "Дата", value: "14 июня 2025", sub: "Суббота" },
+            { icon: "Calendar", label: "Дата", value: "27 июня 2026", sub: "Суббота" },
             { icon: "Clock", label: "Время", value: "14:00", sub: "Сбор гостей с 13:30" },
             { icon: "MapPin", label: "Место", value: "Банкетный зал «Белая роза»", sub: "ул. Цветочная, 12, Москва" },
           ].map(({ icon, label, value, sub }) => (
@@ -396,7 +396,7 @@ export default function Index() {
           Артём &amp; Татьяна
         </p>
         <p style={{ color: "var(--gold)", fontSize: "0.8rem", letterSpacing: "0.2em", textTransform: "uppercase", marginTop: "0.5rem" }}>
-          14 · 06 · 2025
+          27 · 06 · 2026
         </p>
         <div className="mt-6 text-2xl">🌸 💍 🌸</div>
         <p className="mt-6" style={{ fontSize: "0.75rem", color: "var(--rose)", opacity: 0.6 }}>
