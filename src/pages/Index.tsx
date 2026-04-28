@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Icon from "@/components/ui/icon";
 
 const WEDDING_DATE = new Date("2026-06-27T14:00:00");
-const COUPLE_IMAGE = "https://cdn.poehali.dev/projects/f53dbfb7-d727-42fe-9729-e895784092b3/files/9283ecf9-da07-46a6-80cc-60d82ada7f11.jpg";
+const COUPLE_IMAGE = "https://cdn.poehali.dev/projects/f53dbfb7-d727-42fe-9729-e895784092b3/bucket/d74d0554-3be4-4c72-a5e0-7dd0b33fdbe1.jpeg";
 
 function useCountdown(target: Date) {
   const calc = () => {
