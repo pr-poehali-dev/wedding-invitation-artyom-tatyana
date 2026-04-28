@@ -165,7 +165,7 @@ export default function Index() {
           {[
             { icon: "Calendar", label: "Дата", value: "27 июня 2026", sub: "Суббота" },
             { icon: "Clock", label: "Время", value: "14:00 / 15:00", sub: "Сбор гостей · Церемония в 15:00" },
-            { icon: "MapPin", label: "Место", value: "Банкетный зал «Белая роза»", sub: "ул. Цветочная, 12, Москва" },
+            { icon: "MapPin", label: "Место", value: "Шатёр Бриз · Солнечный Берег", sub: "Московская область, г.о. Мытищи" },
           ].map(({ icon, label, value, sub }) => (
             <div key={label} className="wedding-card text-center">
               <div className="w-14 h-14 rounded-full mx-auto mb-4 flex items-center justify-center"
@@ -182,7 +182,7 @@ export default function Index() {
         {/* Map link */}
         <div className="text-center mt-8">
           <a
-            href="https://yandex.ru/maps/?text=ул.+Цветочная,+12,+Москва"
+            href="https://yandex.ru/maps/org/solnechny_bereg/74953171641?si=xnm3y2na3jdtrk0q2167npj274"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-outline-wedding inline-flex items-center gap-2"
