@@ -416,59 +416,60 @@ export default function Index() {
                   </div>
                 )}
 
-                {/* Food */}
-                <div>
-                  <label style={{ display: "block", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#888", marginBottom: "0.75rem" }}>
-                    Предпочтения в еде
-                  </label>
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
-                    {[["meat", "🥩 Мясо"], ["fish", "🐟 Рыба"]].map(([val, label]) => (
-                      <button key={val} type="button"
-                        onClick={() => setRsvp(p => ({ ...p, food: val }))}
-                        style={{
-                          padding: "0.75rem",
-                          border: "1px solid",
-                          borderColor: rsvp.food === val ? "#1a1a1a" : "#d0c8bf",
-                          background: rsvp.food === val ? "#1a1a1a" : "#fff",
-                          color: rsvp.food === val ? "#fff" : "#555",
-                          fontFamily: "'Raleway', sans-serif",
-                          fontSize: "0.85rem",
-                          cursor: "pointer",
-                          borderRadius: "2px",
-                          transition: "all 0.2s",
-                        }}>
-                        {label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Drinks */}
-                <div>
-                  <label style={{ display: "block", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#888", marginBottom: "0.75rem" }}>
-                    Предпочтения в напитках
-                  </label>
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
-                    {drinks.map(drink => (
-                      <button key={drink} type="button" onClick={() => toggleDrink(drink)}
-                        style={{
-                          padding: "0.4rem 1rem",
-                          border: "1px solid",
-                          borderColor: rsvp.drinks.includes(drink) ? "#b8986a" : "#d0c8bf",
-                          background: rsvp.drinks.includes(drink) ? "#b8986a" : "#fff",
-                          color: rsvp.drinks.includes(drink) ? "#fff" : "#555",
-                          fontFamily: "'Raleway', sans-serif",
-                          fontSize: "0.75rem",
-                          cursor: "pointer",
-                          borderRadius: "2px",
-                          transition: "all 0.2s",
-                        }}>
-                        {drink}
-                      </button>
-                    ))}
-                  </div>
-                </div>
               </>)}
+
+              {/* Food */}
+              <div>
+                <label style={{ display: "block", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#888", marginBottom: "0.75rem" }}>
+                  Предпочтения в еде
+                </label>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
+                  {[["meat", "🥩 Мясо"], ["fish", "🐟 Рыба"]].map(([val, label]) => (
+                    <button key={val} type="button"
+                      onClick={() => setRsvp(p => ({ ...p, food: val }))}
+                      style={{
+                        padding: "0.75rem",
+                        border: "1px solid",
+                        borderColor: rsvp.food === val ? "#1a1a1a" : "#d0c8bf",
+                        background: rsvp.food === val ? "#1a1a1a" : "#fff",
+                        color: rsvp.food === val ? "#fff" : "#555",
+                        fontFamily: "'Raleway', sans-serif",
+                        fontSize: "0.85rem",
+                        cursor: "pointer",
+                        borderRadius: "2px",
+                        transition: "all 0.2s",
+                      }}>
+                      {label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Drinks */}
+              <div>
+                <label style={{ display: "block", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#888", marginBottom: "0.75rem" }}>
+                  Предпочтения в напитках
+                </label>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+                  {drinks.map(drink => (
+                    <button key={drink} type="button" onClick={() => toggleDrink(drink)}
+                      style={{
+                        padding: "0.4rem 1rem",
+                        border: "1px solid",
+                        borderColor: rsvp.drinks.includes(drink) ? "#b8986a" : "#d0c8bf",
+                        background: rsvp.drinks.includes(drink) ? "#b8986a" : "#fff",
+                        color: rsvp.drinks.includes(drink) ? "#fff" : "#555",
+                        fontFamily: "'Raleway', sans-serif",
+                        fontSize: "0.75rem",
+                        cursor: "pointer",
+                        borderRadius: "2px",
+                        transition: "all 0.2s",
+                      }}>
+                      {drink}
+                    </button>
+                  ))}
+                </div>
+              </div>
 
               <button type="submit" style={S.btnPrimary}>Отправить ответ</button>
             </form>
