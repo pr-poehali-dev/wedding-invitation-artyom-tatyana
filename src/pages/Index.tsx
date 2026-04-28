@@ -138,21 +138,49 @@ export default function Index() {
         </div>
       </section>
 
-      {/* ── COUPLE PHOTO ── */}
+      {/* ── COUPLE PHOTOS ── */}
       <section id="photos" className="wedding-section">
-        <SectionTitle pre="фотография" title="Молодожёны" />
-        <div className="max-w-2xl mx-auto">
-          <div className="relative rounded-3xl overflow-hidden shadow-2xl animate-fade-in-up"
+        <SectionTitle pre="наши фотографии" title="Молодожёны" />
+        <div className="max-w-5xl mx-auto">
+          {/* Главное фото */}
+          <div className="relative rounded-3xl overflow-hidden animate-fade-in-up mb-4"
             style={{ border: "6px solid white", boxShadow: "0 20px 60px rgba(74,46,53,0.15)" }}>
-            <img src={COUPLE_IMAGE} alt="Артём и Татьяна" className="w-full object-cover" style={{ maxHeight: "600px" }} />
+            <img
+              src="https://cdn.poehali.dev/projects/f53dbfb7-d727-42fe-9729-e895784092b3/bucket/2d62fc34-695b-4f6b-8057-c772eba43b92.jpeg"
+              alt="Артём и Татьяна"
+              className="w-full object-cover object-top"
+              style={{ maxHeight: "620px" }}
+            />
             <div className="absolute bottom-0 left-0 right-0 p-8 text-center"
-              style={{ background: "linear-gradient(to top, rgba(74,46,53,0.7), transparent)" }}>
+              style={{ background: "linear-gradient(to top, rgba(74,46,53,0.65), transparent)" }}>
               <p className="font-cormorant text-white" style={{ fontSize: "2rem", fontWeight: 300, fontStyle: "italic" }}>
                 Артём &amp; Татьяна
               </p>
               <p style={{ color: "rgba(255,255,255,0.8)", fontSize: "0.8rem", letterSpacing: "0.2em", textTransform: "uppercase" }}>
                 27 июня 2026
               </p>
+            </div>
+          </div>
+
+          {/* Две фото снизу */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="rounded-2xl overflow-hidden animate-fade-in-up animate-delay-200"
+              style={{ border: "4px solid white", boxShadow: "0 10px 40px rgba(74,46,53,0.12)" }}>
+              <img
+                src="https://cdn.poehali.dev/projects/f53dbfb7-d727-42fe-9729-e895784092b3/bucket/41426e30-1b13-4f02-a1e3-ae624b97a82d.jpeg"
+                alt="Руки молодожёнов"
+                className="w-full object-cover"
+                style={{ height: "320px" }}
+              />
+            </div>
+            <div className="rounded-2xl overflow-hidden animate-fade-in-up animate-delay-400"
+              style={{ border: "4px solid white", boxShadow: "0 10px 40px rgba(74,46,53,0.12)" }}>
+              <img
+                src={COUPLE_IMAGE}
+                alt="Артём и Татьяна"
+                className="w-full object-cover object-top"
+                style={{ height: "320px" }}
+              />
             </div>
           </div>
         </div>
