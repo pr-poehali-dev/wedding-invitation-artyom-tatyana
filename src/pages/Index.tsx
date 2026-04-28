@@ -2,7 +2,9 @@ import { useState, useEffect } from "react";
 import Icon from "@/components/ui/icon";
 
 const WEDDING_DATE = new Date("2026-06-27T14:00:00");
-const COUPLE_IMAGE = "https://cdn.poehali.dev/projects/f53dbfb7-d727-42fe-9729-e895784092b3/bucket/d74d0554-3be4-4c72-a5e0-7dd0b33fdbe1.jpeg";
+const PHOTO_MAIN = "https://cdn.poehali.dev/projects/f53dbfb7-d727-42fe-9729-e895784092b3/bucket/2d62fc34-695b-4f6b-8057-c772eba43b92.jpeg";
+const PHOTO_HANDS = "https://cdn.poehali.dev/projects/f53dbfb7-d727-42fe-9729-e895784092b3/bucket/41426e30-1b13-4f02-a1e3-ae624b97a82d.jpeg";
+const PHOTO_FUN = "https://cdn.poehali.dev/projects/f53dbfb7-d727-42fe-9729-e895784092b3/bucket/d74d0554-3be4-4c72-a5e0-7dd0b33fdbe1.jpeg";
 
 function useCountdown(target: Date) {
   const calc = () => {
@@ -23,23 +25,37 @@ function useCountdown(target: Date) {
   return time;
 }
 
-const Petal = ({ style }: { style: React.CSSProperties }) => (
-  <div className="petal" style={style}>🌸</div>
-);
-
-const FloralDivider = () => (
-  <div className="flex items-center gap-3 my-8 max-w-xs mx-auto">
-    <div className="flex-1 h-px" style={{ background: "linear-gradient(to right, transparent, var(--gold))" }} />
-    <span style={{ color: "var(--rose)", fontSize: "1.25rem" }}>❀</span>
-    <div className="flex-1 h-px" style={{ background: "linear-gradient(to left, transparent, var(--gold))" }} />
+const Divider = () => (
+  <div className="flex items-center gap-4 my-10 max-w-sm mx-auto">
+    <div className="flex-1 h-px bg-gray-300" />
+    <span style={{ color: "#b8986a", fontSize: "1rem" }}>✦</span>
+    <div className="flex-1 h-px bg-gray-300" />
   </div>
 );
 
-const SectionTitle = ({ pre, title }: { pre: string; title: string }) => (
-  <div className="text-center mb-12">
-    <p className="section-subtitle">{pre}</p>
-    <h2 className="section-title">{title}</h2>
-    <FloralDivider />
+const SectionLabel = ({ text }: { text: string }) => (
+  <p style={{
+    fontFamily: "'Raleway', sans-serif",
+    fontSize: "0.7rem",
+    letterSpacing: "0.3em",
+    textTransform: "uppercase",
+    color: "#b8986a",
+    textAlign: "center",
+    marginBottom: "0.75rem"
+  }}>{text}</p>
+);
+
+const SectionHeading = ({ label, title }: { label: string; title: string }) => (
+  <div className="text-center mb-14">
+    <SectionLabel text={label} />
+    <h2 style={{
+      fontFamily: "'Cormorant Garamond', serif",
+      fontSize: "clamp(2rem, 4vw, 3rem)",
+      fontWeight: 400,
+      color: "#1a1a1a",
+      letterSpacing: "0.03em",
+    }}>{title}</h2>
+    <Divider />
   </div>
 );
 
@@ -62,208 +78,253 @@ export default function Index() {
     setSubmitted(true);
   };
 
-  const petals = Array.from({ length: 8 }, (_, i) => ({
-    left: `${10 + i * 12}%`,
-    animationDuration: `${8 + i * 1.5}s`,
-    animationDelay: `${i * 1.2}s`,
-    fontSize: `${0.8 + (i % 3) * 0.3}rem`,
-  }));
-
   const drinks = ["Красное вино", "Белое вино", "Шампанское", "Виски", "Коктейли", "Безалкогольное"];
 
+  const S = {
+    page: {
+      backgroundColor: "#ffffff",
+      fontFamily: "'Raleway', sans-serif",
+      color: "#1a1a1a",
+    } as React.CSSProperties,
+    nav: {
+      position: "fixed" as const,
+      top: 0, left: 0, right: 0,
+      zIndex: 50,
+      display: "flex",
+      justifyContent: "center",
+      gap: "2.5rem",
+      padding: "1rem 1.5rem",
+      background: "rgba(255,255,255,0.97)",
+      borderBottom: "1px solid #e8e0d5",
+    },
+    navLink: {
+      fontFamily: "'Raleway', sans-serif",
+      fontSize: "0.7rem",
+      letterSpacing: "0.25em",
+      textTransform: "uppercase" as const,
+      color: "#555",
+      textDecoration: "none",
+    },
+    section: {
+      padding: "5rem 1.5rem",
+    },
+    sectionAlt: {
+      padding: "5rem 1.5rem",
+      backgroundColor: "#fafaf8",
+    },
+    card: {
+      background: "#fff",
+      border: "1px solid #e8e0d5",
+      borderRadius: "4px",
+      padding: "2rem",
+    },
+    input: {
+      width: "100%",
+      border: "1px solid #d0c8bf",
+      borderRadius: "2px",
+      padding: "0.75rem 1rem",
+      fontFamily: "'Raleway', sans-serif",
+      fontSize: "0.9375rem",
+      color: "#1a1a1a",
+      background: "#fff",
+      outline: "none",
+    },
+    btnPrimary: {
+      background: "#1a1a1a",
+      color: "#fff",
+      border: "none",
+      borderRadius: "2px",
+      padding: "0.875rem 2.5rem",
+      fontFamily: "'Raleway', sans-serif",
+      fontSize: "0.7rem",
+      letterSpacing: "0.2em",
+      textTransform: "uppercase" as const,
+      cursor: "pointer",
+      width: "100%",
+    },
+    btnOutline: {
+      background: "transparent",
+      color: "#1a1a1a",
+      border: "1px solid #1a1a1a",
+      borderRadius: "2px",
+      padding: "0.75rem 2rem",
+      fontFamily: "'Raleway', sans-serif",
+      fontSize: "0.7rem",
+      letterSpacing: "0.2em",
+      textTransform: "uppercase" as const,
+      cursor: "pointer",
+      display: "inline-flex",
+      alignItems: "center",
+      gap: "0.5rem",
+      textDecoration: "none",
+      color2: "#1a1a1a",
+    },
+  };
+
   return (
-    <div className="min-h-screen" style={{ backgroundColor: "var(--cream)", fontFamily: "'Raleway', sans-serif" }}>
-      {/* Falling petals */}
-      {petals.map((s, i) => <Petal key={i} style={s} />)}
+    <div style={S.page}>
 
       {/* ── NAV ── */}
-      <nav className="fixed top-0 left-0 right-0 z-50 flex justify-center gap-6 py-4 text-xs tracking-widest uppercase"
-        style={{ background: "rgba(253,248,243,0.92)", backdropFilter: "blur(12px)", borderBottom: "1px solid rgba(201,169,110,0.15)", color: "var(--rose)" }}>
+      <nav style={S.nav}>
         {[["Детали", "#details"], ["Фото", "#photos"], ["Дресс-код", "#dresscode"], ["RSVP", "#rsvp"]].map(([label, href]) => (
-          <a key={href} href={href} className="hover:opacity-60 transition-opacity hidden sm:inline">{label}</a>
+          <a key={href} href={href} style={S.navLink} className="hidden sm:inline hover:opacity-50 transition-opacity">{label}</a>
         ))}
-        <a href="#rsvp" className="sm:hidden btn-wedding py-1 px-4 text-xs">RSVP</a>
+        <a href="#rsvp" className="sm:hidden" style={{ ...S.navLink, background: "#1a1a1a", color: "#fff", padding: "0.4rem 1rem" }}>RSVP</a>
       </nav>
 
       {/* ── HERO ── */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 pt-20">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute -top-20 -left-20 w-96 h-96 rounded-full opacity-20 blur-3xl"
-            style={{ background: "radial-gradient(circle, var(--blush), transparent)" }} />
-          <div className="absolute -bottom-20 -right-20 w-96 h-96 rounded-full opacity-20 blur-3xl"
-            style={{ background: "radial-gradient(circle, var(--blush), transparent)" }} />
-        </div>
+      <section style={{ minHeight: "100vh", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "8rem 1.5rem 4rem" }}>
+        <SectionLabel text="приглашают вас на свадьбу" />
 
-        <p className="section-subtitle animate-fade-in" style={{ animationDelay: "0.2s", opacity: 0 }}>
-          приглашают вас на свадьбу
-        </p>
-
-        <h1 className="font-cormorant animate-fade-in-up animate-delay-400"
-          style={{ fontSize: "clamp(3.5rem, 12vw, 8rem)", fontWeight: 300, color: "var(--deep)", lineHeight: 1.05, letterSpacing: "0.02em", opacity: 0 }}>
+        <h1 style={{
+          fontFamily: "'Cormorant Garamond', serif",
+          fontSize: "clamp(4rem, 14vw, 10rem)",
+          fontWeight: 300,
+          color: "#1a1a1a",
+          lineHeight: 0.95,
+          letterSpacing: "0.01em",
+          margin: "1.5rem 0",
+        }}>
           Артём<br />
-          <span style={{ color: "var(--rose)", fontStyle: "italic" }}>&amp;</span><br />
+          <span style={{ color: "#b8986a", fontStyle: "italic" }}>&amp;</span><br />
           Татьяна
         </h1>
 
-        <p className="font-cormorant animate-fade-in animate-delay-600 mt-4"
-          style={{ fontSize: "1.5rem", color: "var(--gold)", fontStyle: "italic", opacity: 0 }}>
-          27 июня 2026
-        </p>
+        <p style={{
+          fontFamily: "'Cormorant Garamond', serif",
+          fontSize: "1.25rem",
+          color: "#888",
+          fontStyle: "italic",
+          letterSpacing: "0.1em",
+          marginBottom: "3rem",
+        }}>27 июня 2026</p>
 
         {/* Countdown */}
-        <div className="flex gap-6 sm:gap-10 mt-10 animate-fade-in animate-delay-800" style={{ opacity: 0 }}>
+        <div style={{ display: "flex", gap: "3rem", marginBottom: "3rem" }}>
           {[
             { val: countdown.days, label: "дней" },
             { val: countdown.hours, label: "часов" },
             { val: countdown.minutes, label: "минут" },
             { val: countdown.seconds, label: "секунд" },
           ].map(({ val, label }) => (
-            <div key={label} className="text-center">
-              <div className="font-cormorant" style={{ fontSize: "clamp(2rem, 6vw, 3.5rem)", color: "var(--deep)", fontWeight: 300, lineHeight: 1 }}>
+            <div key={label} style={{ textAlign: "center" }}>
+              <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(2.5rem, 6vw, 4rem)", fontWeight: 300, color: "#1a1a1a", lineHeight: 1 }}>
                 {String(val).padStart(2, "0")}
               </div>
-              <div style={{ fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--rose)", marginTop: "0.25rem" }}>
+              <div style={{ fontSize: "0.6rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "#aaa", marginTop: "0.4rem" }}>
                 {label}
               </div>
             </div>
           ))}
         </div>
 
-        <a href="#rsvp" className="btn-wedding mt-12 inline-block animate-fade-in animate-delay-800" style={{ opacity: 0 }}>
+        <a href="#rsvp" style={{ ...S.btnPrimary, width: "auto", display: "inline-block", textDecoration: "none" }}>
           Подтвердить присутствие
         </a>
 
-        <div className="absolute bottom-8 animate-float" style={{ color: "var(--rose)", opacity: 0.5 }}>
-          <Icon name="ChevronDown" size={28} />
+        <div style={{ marginTop: "4rem", color: "#ccc" }}>
+          <Icon name="ChevronDown" size={24} />
         </div>
       </section>
 
-      {/* ── COUPLE PHOTOS ── */}
-      <section id="photos" className="wedding-section">
-        <SectionTitle pre="наши фотографии" title="Молодожёны" />
-        <div className="max-w-5xl mx-auto">
-          {/* Главное фото */}
-          <div className="relative rounded-3xl overflow-hidden animate-fade-in-up mb-4"
-            style={{ border: "6px solid white", boxShadow: "0 20px 60px rgba(74,46,53,0.15)" }}>
-            <img
-              src="https://cdn.poehali.dev/projects/f53dbfb7-d727-42fe-9729-e895784092b3/bucket/2d62fc34-695b-4f6b-8057-c772eba43b92.jpeg"
-              alt="Артём и Татьяна"
-              className="w-full object-cover object-top"
-              style={{ maxHeight: "620px" }}
-            />
-            <div className="absolute bottom-0 left-0 right-0 p-8 text-center"
-              style={{ background: "linear-gradient(to top, rgba(74,46,53,0.65), transparent)" }}>
-              <p className="font-cormorant text-white" style={{ fontSize: "2rem", fontWeight: 300, fontStyle: "italic" }}>
-                Артём &amp; Татьяна
-              </p>
-              <p style={{ color: "rgba(255,255,255,0.8)", fontSize: "0.8rem", letterSpacing: "0.2em", textTransform: "uppercase" }}>
-                27 июня 2026
-              </p>
+      {/* ── PHOTOS ── */}
+      <section id="photos" style={S.sectionAlt}>
+        <SectionHeading label="наши фотографии" title="Молодожёны" />
+        <div style={{ maxWidth: "960px", margin: "0 auto" }}>
+          <div style={{ borderRadius: "2px", overflow: "hidden", marginBottom: "8px", position: "relative" }}>
+            <img src={PHOTO_MAIN} alt="Артём и Татьяна" style={{ width: "100%", maxHeight: "600px", objectFit: "cover", objectPosition: "top", display: "block" }} />
+            <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "2.5rem", textAlign: "center", background: "linear-gradient(to top, rgba(0,0,0,0.55), transparent)" }}>
+              <p style={{ fontFamily: "'Cormorant Garamond', serif", color: "#fff", fontSize: "2rem", fontWeight: 300, fontStyle: "italic" }}>Артём &amp; Татьяна</p>
+              <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "0.7rem", letterSpacing: "0.25em", textTransform: "uppercase" }}>27 · 06 · 2026</p>
             </div>
           </div>
-
-          {/* Две фото снизу */}
-          <div className="grid grid-cols-2 gap-4">
-            <div className="rounded-2xl overflow-hidden animate-fade-in-up animate-delay-200"
-              style={{ border: "4px solid white", boxShadow: "0 10px 40px rgba(74,46,53,0.12)" }}>
-              <img
-                src="https://cdn.poehali.dev/projects/f53dbfb7-d727-42fe-9729-e895784092b3/bucket/41426e30-1b13-4f02-a1e3-ae624b97a82d.jpeg"
-                alt="Руки молодожёнов"
-                className="w-full object-cover"
-                style={{ height: "320px" }}
-              />
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px" }}>
+            <div style={{ borderRadius: "2px", overflow: "hidden" }}>
+              <img src={PHOTO_HANDS} alt="Руки молодожёнов" style={{ width: "100%", height: "320px", objectFit: "cover", display: "block" }} />
             </div>
-            <div className="rounded-2xl overflow-hidden animate-fade-in-up animate-delay-400"
-              style={{ border: "4px solid white", boxShadow: "0 10px 40px rgba(74,46,53,0.12)" }}>
-              <img
-                src={COUPLE_IMAGE}
-                alt="Артём и Татьяна"
-                className="w-full object-cover object-top"
-                style={{ height: "320px" }}
-              />
+            <div style={{ borderRadius: "2px", overflow: "hidden" }}>
+              <img src={PHOTO_FUN} alt="Артём и Татьяна" style={{ width: "100%", height: "320px", objectFit: "cover", objectPosition: "top", display: "block" }} />
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── EVENT DETAILS ── */}
-      <section id="details" className="wedding-section" style={{ backgroundColor: "rgba(242,212,215,0.15)" }}>
-        <SectionTitle pre="всё что нужно знать" title="Детали события" />
-        <div className="max-w-4xl mx-auto grid sm:grid-cols-3 gap-6">
+      {/* ── DETAILS ── */}
+      <section id="details" style={S.section}>
+        <SectionHeading label="всё что нужно знать" title="Детали события" />
+        <div style={{ maxWidth: "900px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "1.5rem" }}>
           {[
             { icon: "Calendar", label: "Дата", value: "27 июня 2026", sub: "Суббота" },
             { icon: "Clock", label: "Время", value: "14:00 / 15:00", sub: "Сбор гостей · Церемония в 15:00" },
             { icon: "MapPin", label: "Место", value: "Шатёр Бриз · Солнечный Берег", sub: "Московская область, г.о. Мытищи" },
           ].map(({ icon, label, value, sub }) => (
-            <div key={label} className="wedding-card text-center">
-              <div className="w-14 h-14 rounded-full mx-auto mb-4 flex items-center justify-center"
-                style={{ background: "linear-gradient(135deg, var(--blush), white)" }}>
-                <Icon name={icon} size={22} style={{ color: "var(--rose)" }} />
+            <div key={label} style={{ ...S.card, textAlign: "center" }}>
+              <div style={{ width: "48px", height: "48px", border: "1px solid #e8e0d5", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.25rem" }}>
+                <Icon name={icon} size={20} style={{ color: "#b8986a" }} />
               </div>
-              <p style={{ fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--gold)", marginBottom: "0.5rem" }}>{label}</p>
-              <p className="font-cormorant" style={{ fontSize: "1.4rem", color: "var(--deep)", fontWeight: 400 }}>{value}</p>
-              <p style={{ fontSize: "0.85rem", color: "var(--rose)", marginTop: "0.25rem" }}>{sub}</p>
+              <p style={{ fontSize: "0.65rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "#b8986a", marginBottom: "0.5rem" }}>{label}</p>
+              <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.3rem", color: "#1a1a1a", fontWeight: 400, marginBottom: "0.25rem" }}>{value}</p>
+              <p style={{ fontSize: "0.8rem", color: "#888" }}>{sub}</p>
             </div>
           ))}
         </div>
-
-        {/* Map link */}
-        <div className="text-center mt-8">
-          <a
-            href="https://yandex.ru/maps/org/solnechny_bereg/74953171641?si=xnm3y2na3jdtrk0q2167npj274"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-outline-wedding inline-flex items-center gap-2"
-          >
-            <Icon name="Navigation" size={16} />
+        <div style={{ textAlign: "center", marginTop: "2.5rem" }}>
+          <a href="https://yandex.ru/maps/org/solnechny_bereg/74953171641?si=xnm3y2na3jdtrk0q2167npj274"
+            target="_blank" rel="noopener noreferrer"
+            style={{ ...S.btnOutline, color: "#1a1a1a" }}>
+            <Icon name="Navigation" size={14} />
             Открыть маршрут на карте
           </a>
         </div>
       </section>
 
       {/* ── DRESS CODE ── */}
-      <section id="dresscode" className="wedding-section">
-        <SectionTitle pre="стиль вечера" title="Дресс-код" />
-        <div className="max-w-3xl mx-auto">
-          <div className="wedding-card text-center mb-8">
-            <div className="text-5xl mb-4">🎀</div>
-            <h3 className="font-cormorant mb-2" style={{ fontSize: "2rem", color: "var(--deep)", fontWeight: 300 }}>
+      <section id="dresscode" style={S.sectionAlt}>
+        <SectionHeading label="стиль вечера" title="Дресс-код" />
+        <div style={{ maxWidth: "800px", margin: "0 auto" }}>
+          <div style={{ ...S.card, textAlign: "center", marginBottom: "1.5rem", borderTop: "3px solid #b8986a" }}>
+            <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.75rem", color: "#1a1a1a", fontWeight: 400, marginBottom: "0.5rem" }}>
               Нежные пастельные тона
-            </h3>
-            <p style={{ color: "var(--rose)", fontSize: "0.875rem", letterSpacing: "0.1em" }}>
-              Элегантный дресс-код — Formal / Black Tie Optional
+            </p>
+            <p style={{ fontSize: "0.8rem", color: "#888", letterSpacing: "0.1em" }}>
+              Formal / Black Tie Optional
             </p>
           </div>
-
-          <div className="grid sm:grid-cols-2 gap-6">
-            <div className="wedding-card">
-              <div className="flex items-center gap-3 mb-4">
-                <span className="text-2xl">👗</span>
-                <h4 className="font-cormorant" style={{ fontSize: "1.4rem", color: "var(--deep)" }}>Для неё</h4>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.5rem" }}>
+            {[
+              {
+                icon: "👗", title: "Для неё",
+                items: ["Вечернее или коктейльное платье", "Пастельные оттенки: пудровый, мятный, лавандовый", "Элегантные туфли или босоножки"],
+                warn: "Избегайте белого и айвори"
+              },
+              {
+                icon: "🤵", title: "Для него",
+                items: ["Классический костюм или смокинг", "Светлые или нейтральные тона", "Галстук или галстук-бабочка", "Классические туфли"],
+                warn: ""
+              }
+            ].map(({ icon, title, items, warn }) => (
+              <div key={title} style={S.card}>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1.25rem", borderBottom: "1px solid #e8e0d5", paddingBottom: "1rem" }}>
+                  <span style={{ fontSize: "1.5rem" }}>{icon}</span>
+                  <h4 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.3rem", color: "#1a1a1a", fontWeight: 400 }}>{title}</h4>
+                </div>
+                <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
+                  {items.map(item => (
+                    <li key={item} style={{ fontSize: "0.875rem", color: "#444", lineHeight: 1.9, display: "flex", gap: "0.5rem" }}>
+                      <span style={{ color: "#b8986a", flexShrink: 0 }}>—</span>{item}
+                    </li>
+                  ))}
+                  {warn && (
+                    <li style={{ fontSize: "0.8rem", color: "#c0392b", marginTop: "0.75rem", display: "flex", gap: "0.5rem" }}>
+                      <span style={{ flexShrink: 0 }}>✗</span>{warn}
+                    </li>
+                  )}
+                </ul>
               </div>
-              <ul className="space-y-2" style={{ color: "var(--deep)", fontSize: "0.9rem", lineHeight: 1.8 }}>
-                <li>✦ Вечернее или коктейльное платье</li>
-                <li>✦ Пастельные оттенки: пудровый, мятный, лавандовый</li>
-                <li>✦ Элегантные туфли или босоножки</li>
-                <li style={{ color: "var(--rose)" }}>✗ Избегайте белого и айвори</li>
-              </ul>
-            </div>
-            <div className="wedding-card">
-              <div className="flex items-center gap-3 mb-4">
-                <span className="text-2xl">🤵</span>
-                <h4 className="font-cormorant" style={{ fontSize: "1.4rem", color: "var(--deep)" }}>Для него</h4>
-              </div>
-              <ul className="space-y-2" style={{ color: "var(--deep)", fontSize: "0.9rem", lineHeight: 1.8 }}>
-                <li>✦ Классический костюм или смокинг</li>
-                <li>✦ Светлые или нейтральные тона</li>
-                <li>✦ Галстук или галстук-бабочка</li>
-                <li>✦ Классические туфли</li>
-              </ul>
-            </div>
+            ))}
           </div>
-
-          <div className="wedding-card mt-6 text-center" style={{ background: "rgba(242,212,215,0.3)" }}>
-            <p className="font-cormorant" style={{ fontSize: "1.1rem", color: "var(--deep)", fontStyle: "italic" }}>
+          <div style={{ ...S.card, marginTop: "1.5rem", background: "#fafaf8" }}>
+            <p style={{ fontSize: "0.875rem", color: "#555", textAlign: "center", lineHeight: 1.7 }}>
               💡 Рекомендуем дамам выбирать каблук не выше 5 см — церемония проходит на открытом воздухе с газоном
             </p>
           </div>
@@ -271,163 +332,142 @@ export default function Index() {
       </section>
 
       {/* ── RSVP ── */}
-      <section id="rsvp" className="wedding-section" style={{ backgroundColor: "rgba(242,212,215,0.15)" }}>
-        <SectionTitle pre="подтверждение" title="Форма RSVP" />
-        <div className="max-w-xl mx-auto">
+      <section id="rsvp" style={S.section}>
+        <SectionHeading label="подтверждение" title="Форма RSVP" />
+        <div style={{ maxWidth: "560px", margin: "0 auto" }}>
           {submitted ? (
-            <div className="wedding-card text-center py-16 animate-fade-in">
-              <div className="text-6xl mb-4">🌸</div>
-              <h3 className="font-cormorant mb-2" style={{ fontSize: "2rem", color: "var(--deep)" }}>Спасибо!</h3>
-              <p style={{ color: "var(--rose)" }}>Мы с нетерпением ждём встречи с вами на нашем празднике</p>
+            <div style={{ ...S.card, textAlign: "center", padding: "4rem 2rem", borderTop: "3px solid #b8986a" }}>
+              <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "2.5rem", color: "#1a1a1a", fontWeight: 300, marginBottom: "0.75rem" }}>Спасибо</p>
+              <p style={{ fontSize: "0.9rem", color: "#888" }}>Мы с нетерпением ждём встречи с вами</p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="wedding-card space-y-5">
+            <form onSubmit={handleSubmit} style={{ ...S.card, display: "flex", flexDirection: "column", gap: "1.5rem", borderTop: "3px solid #b8986a" }}>
               {/* Name */}
               <div>
-                <label className="block mb-2" style={{ fontSize: "0.75rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--rose)" }}>
+                <label style={{ display: "block", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#888", marginBottom: "0.5rem" }}>
                   Ваше имя *
                 </label>
-                <input
-                  className="wedding-input"
-                  placeholder="Имя и фамилия"
-                  required
-                  value={rsvp.name}
-                  onChange={e => setRsvp(p => ({ ...p, name: e.target.value }))}
-                />
+                <input style={S.input} placeholder="Имя и фамилия" required value={rsvp.name}
+                  onChange={e => setRsvp(p => ({ ...p, name: e.target.value }))} />
               </div>
 
               {/* Attending */}
               <div>
-                <label className="block mb-3" style={{ fontSize: "0.75rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--rose)" }}>
+                <label style={{ display: "block", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#888", marginBottom: "0.75rem" }}>
                   Смогу присутствовать? *
                 </label>
-                <div className="grid grid-cols-2 gap-3">
-                  {[["yes", "🥂 Да, буду!"], ["no", "😔 К сожалению, нет"]].map(([val, label]) => (
-                    <button
-                      key={val}
-                      type="button"
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
+                  {[["yes", "Да, буду"], ["no", "К сожалению, нет"]].map(([val, label]) => (
+                    <button key={val} type="button"
                       onClick={() => setRsvp(p => ({ ...p, attending: val }))}
-                      className="py-3 px-4 rounded-xl text-sm transition-all"
                       style={{
-                        border: "1.5px solid",
-                        borderColor: rsvp.attending === val ? "var(--rose)" : "rgba(201,169,110,0.3)",
-                        background: rsvp.attending === val ? "var(--rose)" : "transparent",
-                        color: rsvp.attending === val ? "white" : "var(--deep)",
+                        padding: "0.75rem",
+                        border: "1px solid",
+                        borderColor: rsvp.attending === val ? "#1a1a1a" : "#d0c8bf",
+                        background: rsvp.attending === val ? "#1a1a1a" : "#fff",
+                        color: rsvp.attending === val ? "#fff" : "#555",
                         fontFamily: "'Raleway', sans-serif",
+                        fontSize: "0.8rem",
                         cursor: "pointer",
-                      }}
-                    >
+                        borderRadius: "2px",
+                        transition: "all 0.2s",
+                      }}>
                       {label}
                     </button>
                   ))}
                 </div>
               </div>
 
-              {rsvp.attending === "yes" && (
-                <>
-                  {/* Plus one */}
-                  <div>
-                    <label className="block mb-3" style={{ fontSize: "0.75rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--rose)" }}>
-                      Придёте с сопровождающим?
-                    </label>
-                    <div className="grid grid-cols-2 gap-3">
-                      {[["yes", "Да, с парой"], ["no", "Приду один(а)"]].map(([val, label]) => (
-                        <button
-                          key={val}
-                          type="button"
-                          onClick={() => setRsvp(p => ({ ...p, plusOne: val }))}
-                          className="py-3 px-4 rounded-xl text-sm transition-all"
-                          style={{
-                            border: "1.5px solid",
-                            borderColor: rsvp.plusOne === val ? "var(--rose)" : "rgba(201,169,110,0.3)",
-                            background: rsvp.plusOne === val ? "var(--rose)" : "transparent",
-                            color: rsvp.plusOne === val ? "white" : "var(--deep)",
-                            fontFamily: "'Raleway', sans-serif",
-                            cursor: "pointer",
-                          }}
-                        >
-                          {label}
-                        </button>
-                      ))}
-                    </div>
+              {rsvp.attending === "yes" && (<>
+                {/* Plus one */}
+                <div>
+                  <label style={{ display: "block", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#888", marginBottom: "0.75rem" }}>
+                    Придёте с сопровождающим?
+                  </label>
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.75rem" }}>
+                    {[["yes", "Да, с парой"], ["no", "Приду один(а)"]].map(([val, label]) => (
+                      <button key={val} type="button"
+                        onClick={() => setRsvp(p => ({ ...p, plusOne: val }))}
+                        style={{
+                          padding: "0.75rem",
+                          border: "1px solid",
+                          borderColor: rsvp.plusOne === val ? "#1a1a1a" : "#d0c8bf",
+                          background: rsvp.plusOne === val ? "#1a1a1a" : "#fff",
+                          color: rsvp.plusOne === val ? "#fff" : "#555",
+                          fontFamily: "'Raleway', sans-serif",
+                          fontSize: "0.8rem",
+                          cursor: "pointer",
+                          borderRadius: "2px",
+                          transition: "all 0.2s",
+                        }}>
+                        {label}
+                      </button>
+                    ))}
                   </div>
+                </div>
 
-                  {rsvp.plusOne === "yes" && (
-                    <div>
-                      <label className="block mb-2" style={{ fontSize: "0.75rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--rose)" }}>
-                        Имя сопровождающего
-                      </label>
-                      <input
-                        className="wedding-input"
-                        placeholder="Имя вашего гостя"
-                        value={rsvp.plusOneName}
-                        onChange={e => setRsvp(p => ({ ...p, plusOneName: e.target.value }))}
-                      />
-                    </div>
-                  )}
-
-                  {/* Drinks */}
+                {rsvp.plusOne === "yes" && (
                   <div>
-                    <label className="block mb-3" style={{ fontSize: "0.75rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--rose)" }}>
-                      Предпочтения в напитках
+                    <label style={{ display: "block", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#888", marginBottom: "0.5rem" }}>
+                      Имя сопровождающего
                     </label>
-                    <div className="flex flex-wrap gap-2">
-                      {drinks.map(drink => (
-                        <button
-                          key={drink}
-                          type="button"
-                          onClick={() => toggleDrink(drink)}
-                          className="py-2 px-4 rounded-full text-sm transition-all"
-                          style={{
-                            border: "1.5px solid",
-                            borderColor: rsvp.drinks.includes(drink) ? "var(--gold)" : "rgba(201,169,110,0.3)",
-                            background: rsvp.drinks.includes(drink) ? "rgba(201,169,110,0.15)" : "transparent",
-                            color: rsvp.drinks.includes(drink) ? "var(--gold)" : "var(--deep)",
-                            fontFamily: "'Raleway', sans-serif",
-                            cursor: "pointer",
-                          }}
-                        >
-                          {drink}
-                        </button>
-                      ))}
-                    </div>
+                    <input style={S.input} placeholder="Имя вашего гостя" value={rsvp.plusOneName}
+                      onChange={e => setRsvp(p => ({ ...p, plusOneName: e.target.value }))} />
                   </div>
-                </>
-              )}
+                )}
+
+                {/* Drinks */}
+                <div>
+                  <label style={{ display: "block", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#888", marginBottom: "0.75rem" }}>
+                    Предпочтения в напитках
+                  </label>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
+                    {drinks.map(drink => (
+                      <button key={drink} type="button" onClick={() => toggleDrink(drink)}
+                        style={{
+                          padding: "0.4rem 1rem",
+                          border: "1px solid",
+                          borderColor: rsvp.drinks.includes(drink) ? "#b8986a" : "#d0c8bf",
+                          background: rsvp.drinks.includes(drink) ? "#b8986a" : "#fff",
+                          color: rsvp.drinks.includes(drink) ? "#fff" : "#555",
+                          fontFamily: "'Raleway', sans-serif",
+                          fontSize: "0.75rem",
+                          cursor: "pointer",
+                          borderRadius: "2px",
+                          transition: "all 0.2s",
+                        }}>
+                        {drink}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </>)}
 
               {/* Notes */}
               <div>
-                <label className="block mb-2" style={{ fontSize: "0.75rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--rose)" }}>
+                <label style={{ display: "block", fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#888", marginBottom: "0.5rem" }}>
                   Пожелания и аллергии
                 </label>
-                <textarea
-                  className="wedding-input"
+                <textarea style={{ ...S.input, resize: "none" }} rows={3}
                   placeholder="Диетические предпочтения, аллергии или особые пожелания..."
-                  rows={3}
-                  style={{ resize: "none" }}
-                  value={rsvp.notes}
-                  onChange={e => setRsvp(p => ({ ...p, notes: e.target.value }))}
-                />
+                  value={rsvp.notes} onChange={e => setRsvp(p => ({ ...p, notes: e.target.value }))} />
               </div>
 
-              <button type="submit" className="btn-wedding w-full mt-2">
-                Отправить ответ
-              </button>
+              <button type="submit" style={S.btnPrimary}>Отправить ответ</button>
             </form>
           )}
         </div>
       </section>
 
       {/* ── FOOTER ── */}
-      <footer className="py-16 text-center px-6" style={{ borderTop: "1px solid rgba(201,169,110,0.2)" }}>
-        <p className="font-cormorant" style={{ fontSize: "2.5rem", color: "var(--deep)", fontWeight: 300, fontStyle: "italic" }}>
+      <footer style={{ borderTop: "1px solid #e8e0d5", padding: "3rem 1.5rem", textAlign: "center" }}>
+        <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "2rem", fontWeight: 300, color: "#1a1a1a", fontStyle: "italic" }}>
           Артём &amp; Татьяна
         </p>
-        <p style={{ color: "var(--gold)", fontSize: "0.8rem", letterSpacing: "0.2em", textTransform: "uppercase", marginTop: "0.5rem" }}>
+        <p style={{ fontSize: "0.65rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "#b8986a", marginTop: "0.5rem" }}>
           27 · 06 · 2026
         </p>
-        <div className="mt-6 text-2xl">🌸 💍 🌸</div>
-        <p className="mt-6" style={{ fontSize: "0.75rem", color: "var(--rose)", opacity: 0.6 }}>
+        <p style={{ fontSize: "0.75rem", color: "#aaa", marginTop: "1.5rem" }}>
           По вопросам: +7 (900) 000-00-00
         </p>
       </footer>
