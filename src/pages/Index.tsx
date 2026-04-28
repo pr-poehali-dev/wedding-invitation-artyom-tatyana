@@ -164,7 +164,7 @@ export default function Index() {
         <div className="max-w-4xl mx-auto grid sm:grid-cols-3 gap-6">
           {[
             { icon: "Calendar", label: "Дата", value: "27 июня 2026", sub: "Суббота" },
-            { icon: "Clock", label: "Время", value: "14:00", sub: "Сбор гостей с 13:30" },
+            { icon: "Clock", label: "Время", value: "14:00 / 15:00", sub: "Сбор гостей · Церемония в 15:00" },
             { icon: "MapPin", label: "Место", value: "Банкетный зал «Белая роза»", sub: "ул. Цветочная, 12, Москва" },
           ].map(({ icon, label, value, sub }) => (
             <div key={label} className="wedding-card text-center">
